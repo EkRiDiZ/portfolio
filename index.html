@@ -1,4 +1,15 @@
-<!DOCTYPE html>
+.about-info h3,
+    .skills-category h3,
+    .contact-info h3 {
+      color: #ffffff;
+      margin-bottom: 1rem;
+      font-weight: 400;
+      font-size: 1.1rem;
+    }
+
+    .about-info h3:not(:first-child) {
+      margin-top: 2.5rem;
+    }<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -18,6 +29,67 @@
       line-height: 1.6;
       overflow-x: hidden;
       animation: pageLoad 0.8s ease-out;
+      position: relative;
+    }
+
+    /* Starfield Background */
+    .starfield {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .star {
+      position: absolute;
+      background: #ffffff;
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle 4s infinite ease-in-out;
+    }
+
+    .star.small {
+      width: 1px;
+      height: 1px;
+    }
+
+    .star.medium {
+      width: 2px;
+      height: 2px;
+    }
+
+    .star.large {
+      width: 3px;
+      height: 3px;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.8); }
+      50% { opacity: 0.8; transform: scale(1.2); }
+    }
+
+    @keyframes drift {
+      0% { transform: translateX(0) translateY(0); }
+      25% { transform: translateX(10px) translateY(-5px); }
+      50% { transform: translateX(-5px) translateY(-10px); }
+      75% { transform: translateX(-10px) translateY(5px); }
+      100% { transform: translateX(0) translateY(0); }
+    }
+
+    .star.drifting {
+      animation: twinkle 4s infinite ease-in-out, drift 20s infinite linear;
+    }
+
+    /* Ensure content is above stars */
+    header,
+    .hero,
+    section,
+    footer {
+      position: relative;
+      z-index: 10;
     }
 
     header {
@@ -148,26 +220,10 @@
       margin-bottom: 3rem;
     }
 
-    .hero-links {
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
 
-    .hero-links a {
-      color: #c0c0c0;
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: all 0.3s ease;
-    }
-
-    .hero-links a:hover {
-      color: #ffffff;
-      border-bottom-color: #c0c0c0;
-    }
 
     section {
-      padding: 5rem 2rem;
+      padding: 8rem 2rem;
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -175,7 +231,7 @@
     .section-title {
       font-size: 2rem;
       font-weight: 300;
-      margin-bottom: 3rem;
+      margin-bottom: 4rem;
       color: #ffffff;
     }
 
@@ -195,7 +251,16 @@
     .contact-content {
       display: grid;
       grid-template-columns: 1fr 2fr;
-      gap: 4rem;
+      gap: 6rem;
+    }
+
+    @media (max-width: 768px) {
+      .about-content,
+      .skills-container,
+      .contact-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
     }
 
     .about-info,
@@ -212,8 +277,32 @@
 
     .project {
       border-bottom: 1px solid #2a2a2a;
-      padding-bottom: 4rem;
+      padding-bottom: 6rem;
+      margin-bottom: 6rem;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .project:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .project.current {
+      border: 1px solid #333333;
+      padding: 3rem;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.02);
+      margin-bottom: 8rem;
+    }
+
+    .project.current::before {
+      content: 'Currently Working On';
+      display: block;
+      font-size: 0.85rem;
+      color: #666666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1rem;
     }
 
     .project:hover {
@@ -245,13 +334,27 @@
       font-size: 0.85rem;
       color: #999999;
       border-bottom: 1px solid #333333;
-      margin-right: 1rem;
+      margin-right: 1.5rem;
+      padding-bottom: 2px;
+      transition: color 0.3s ease;
+    }
+
+    .tech-tag:hover {
+      color: #c0c0c0;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
     }
 
     .contact-links a {
       color: #999999;
       text-decoration: none;
       font-size: 0.95rem;
+      transition: color 0.3s ease;
     }
 
     .contact-links a:hover {
@@ -283,6 +386,9 @@
 </head>
 <body>
 
+  <!-- Starfield Background -->
+  <div class="starfield" id="starfield"></div>
+
   <!-- Header -->
   <header>
     <nav>
@@ -308,11 +414,7 @@
           Final year Computer Science Engineering student specializing in Cyber Security and Ethical Hacking,
           with a passion for integrating AI into everyday solutions.
         </div>
-        <div class="hero-links">
-          <a href="https://www.linkedin.com/in/sankarnath-ch-456a8127b/" target="_blank">LinkedIn</a>
-          <a href="https://github.com/EkRiDiZ" target="_blank">GitHub</a>
-          <a href="#contact">Get in touch</a>
-        </div>
+
       </div>
     </div>
   </section>
@@ -327,10 +429,14 @@
         St Joseph's College of Engineering and Technology, Palai<br>
         2022 - 2026 (Final Year)</p>
         <h3>Focus Areas</h3>
-        <p>Cyber Security<br>Ethical Hacking<br>AI Integration<br>Secure Software Development</p>
+        <p>Cyber Security<br>Ethical Hacking<br>AI Integration<br>Prompt Engineering<br>Secure Software Development</p>
       </div>
       <div class="about-text">
-        I'm a passionate cybersecurity enthusiast and developer focused on building secure, intelligent systems...
+        I'm a passionate cybersecurity enthusiast and developer focused on building secure, intelligent systems. My approach combines deep technical knowledge with practical problem-solving to create solutions that protect and enhance digital experiences.
+        
+        <br><br>
+        
+        Currently exploring the intersection of AI and cybersecurity, with particular interest in threat detection, automated security analysis, and the ethical implications of emerging technologies.
       </div>
     </div>
   </section>
@@ -354,7 +460,7 @@
         </div>
       </div>
       <div class="skills-description">
-        <p>My expertise spans security, dev, and AI...</p>
+        <p>My expertise spans across multiple domains, each reinforcing the others to create comprehensive security solutions. I believe in the power of ethical hacking to strengthen defenses, the potential of AI to automate and enhance security processes, and the importance of building systems that are both powerful and responsible.</p>
       </div>
     </div>
   </section>
@@ -362,6 +468,26 @@
   <!-- Projects -->
   <section id="projects" class="fade-in">
     <h2 class="section-title">Projects</h2>
+    
+    <!-- Current Project -->
+    <div class="project current">
+      <div class="project-header">
+        <div>
+          <div class="project-title">Deepfake Image Detection</div>
+          <div class="project-year">2025</div>
+        </div>
+      </div>
+      <div class="project-description">
+        Developing an AI-powered system to detect deepfake images using advanced neural networks and computer vision techniques. The project focuses on real-time detection capabilities and maintaining high accuracy across various deepfake generation methods.
+      </div>
+      <div>
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">TensorFlow</span>
+        <span class="tech-tag">Computer Vision</span>
+        <span class="tech-tag">Deep Learning</span>
+      </div>
+    </div>
+
     <div class="project">
       <div class="project-header">
         <div>
@@ -370,7 +496,7 @@
         </div>
       </div>
       <div class="project-description">
-        Secure voting using blockchain...
+        Developed a decentralized voting platform using blockchain technology to ensure transparent, tamper-proof elections. The system implements smart contracts for vote validation and uses cryptographic techniques to maintain voter anonymity while ensuring vote integrity.
       </div>
       <div>
         <span class="tech-tag">Blockchain</span>
@@ -387,7 +513,7 @@
         </div>
       </div>
       <div class="project-description">
-        Built a firewall to block SQLi, XSS, etc...
+        Built a comprehensive web application firewall capable of detecting and blocking common web attacks including SQL injection, XSS, CSRF, and path traversal attacks. Features real-time threat analysis and adaptive rule generation.
       </div>
       <div>
         <span class="tech-tag">Python</span>
@@ -447,8 +573,56 @@
       });
     }
 
+    // Starfield Animation
+    function createStarfield() {
+      const starfield = document.getElementById('starfield');
+      const starCount = 50; // Adjust number of stars
+
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        
+        // Random size
+        const sizes = ['small', 'medium', 'large'];
+        const weights = [0.7, 0.25, 0.05]; // More small stars, fewer large ones
+        let randomSize = Math.random();
+        let selectedSize = sizes[0];
+        
+        if (randomSize > weights[0]) {
+          selectedSize = sizes[1];
+        }
+        if (randomSize > weights[0] + weights[1]) {
+          selectedSize = sizes[2];
+        }
+        
+        star.classList.add(selectedSize);
+        
+        // Some stars drift slowly
+        if (Math.random() < 0.3) {
+          star.classList.add('drifting');
+        }
+        
+        // Random position
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        
+        // Random animation delay for twinkling
+        star.style.animationDelay = Math.random() * 4 + 's';
+        
+        // Random drift delay for drifting stars
+        if (star.classList.contains('drifting')) {
+          star.style.animationDelay = Math.random() * 4 + 's, ' + Math.random() * 20 + 's';
+        }
+        
+        starfield.appendChild(star);
+      }
+    }
+
     window.addEventListener('scroll', handleScrollAnimations);
-    document.addEventListener('DOMContentLoaded', handleScrollAnimations);
+    document.addEventListener('DOMContentLoaded', function() {
+      handleScrollAnimations();
+      createStarfield();
+    });
   </script>
 
 </body>
