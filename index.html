@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sankarnath C H - Cyber Security & AI Developer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            color: #e5e5e5;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #2a2a2a;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #c0c0c0;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #c0c0c0;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #c0c0c0;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            margin-top: 80px;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 300;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            letter-spacing: -2px;
+        }
+
+        .hero-content .title {
+            font-size: 1.2rem;
+            color: #c0c0c0;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .hero-content .description {
+            font-size: 1rem;
+            color: #999999;
+            max-width: 600px;
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        .hero-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .hero-links a {
+            color: #c0c0c0;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid transparent;
+        }
+
+        .hero-links a:hover {
+            color: #ffffff;
+            border-bottom-color: #c0c0c0;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            color: #ffffff;
+            letter-spacing: -1px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-info {
+            color: #999999;
+        }
+
+        .about-info h3 {
+            color: #c0c0c0;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .about-info p {
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #b0b0b0;
+        }
+
+        /* Currently Working On Section */
+        .current-work {
+            margin-top: 3rem;
+            padding: 2rem;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .current-work::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #c0c0c0, transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .current-work-label {
+            color: #666666;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .current-work-title {
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .current-work-desc {
+            color: #999999;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+        }
+
+        .skills-category {
+            margin-bottom: 2rem;
+        }
+
+        .skills-category h3 {
+            color: #c0c0c0;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .skills-list {
+            color: #999999;
+            line-height: 1.7;
+        }
+
+        .skills-description {
+            color: #b0b0b0;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* Projects Section */
+        .projects-toggle {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .show-projects-btn {
+            background: transparent;
+            border: 1px solid #333333;
+            color: #c0c0c0;
+            padding: 1rem 2rem;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            font-family: inherit;
+        }
+
+        .show-projects-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(192, 192, 192, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .show-projects-btn:hover::before {
+            left: 100%;
+        }
+
+        .show-projects-btn:hover {
+            border-color: #c0c0c0;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .show-projects-btn.active {
+            background: #c0c0c0;
+            color: #0a0a0a;
+            border-color: #c0c0c0;
+        }
+
+        .projects-grid {
+            display: grid;
+            gap: 4rem;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.6s ease;
+        }
+
+        .projects-grid.visible {
+            opacity: 1;
+            max-height: 2000px;
+        }
+
+        .project {
+            border-bottom: 1px solid #2a2a2a;
+            padding-bottom: 4rem;
+        }
+
+        .project:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-year {
+            color: #999999;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .project-description {
+            color: #b0b0b0;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tech-tag {
+            color: #999999;
+            font-size: 0.85rem;
+            padding: 0.3rem 0;
+            border-bottom: 1px solid #333333;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .tech-tag:hover {
+            color: #c0c0c0;
+            border-bottom-color: #c0c0c0;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            color: #c0c0c0;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-links a {
+            color: #999999;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .contact-links a:hover {
+            color: #ffffff;
+        }
+
+        .contact-text {
+            color: #b0b0b0;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid #2a2a2a;
+            margin-top: 5rem;
+        }
+
+        footer p {
+            color: #666666;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content,
+            .skills-container,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .project-header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .hero-links {
+                flex-direction: column;
+                align-items: start;
+                gap: 1rem;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom cursor for interactive elements */
+        .interactive-cursor {
+            cursor: pointer;
+        }
+
+        .interactive-cursor:hover {
+            cursor: crosshair;
+        }
+
+        /* Subtle page load animation */
+        body {
+            animation: pageLoad 0.8s ease-out;
+        }
+
+        @keyframes pageLoad {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Subtle animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Sankarnath C H</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Sankarnath C H</h1>
+                <div class="title">Cyber Security & AI Developer</div>
+                <div class="description">
+                    Final year Computer Science Engineering student specializing in Cyber Security and Ethical Hacking, 
+                    with a passion for integrating AI into everyday solutions. Currently pursuing BTech at 
+                    St Joseph's College of Engineering and Technology, Palai.
+                </div>
+                <div class="hero-links">
+                    <a href="https://www.linkedin.com/in/sankarnath-ch-456a8127b/" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/EkRiDiZ" target="_blank">GitHub</a>
+                    <a href="#contact">Get in touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="fade-in">
+        <h2 class="section-title">About</h2>
+        <div class="about-content">
+            <div class="about-info">
+                <h3>Education</h3>
+                <p>BTech in Computer Science Engineering with Cyber Security<br>
+                St Joseph's College of Engineering and Technology, Palai<br>
+                2021 - 2025 (Final Year)</p>
+                
+                <h3>Focus Areas</h3>
+                <p>Cyber Security<br>
+                Ethical Hacking<br>
+                AI Integration<br>
+                Secure Software Development</p>
+            </div>
+            <div class="about-text">
+                <p>I'm a passionate cybersecurity enthusiast and developer focused on building secure, intelligent systems. My journey in technology is driven by the belief that security and artificial intelligence are the foundation of tomorrow's digital world.</p>
+                
+                <p>Currently in my final year of Computer Science Engineering with a specialization in Cyber Security, I've developed expertise in ethical hacking, secure system design, and integrating AI solutions into practical applications.</p>
+                
+                <p>My approach combines technical rigor with creative problem-solving, always looking for ways to make technology more secure, efficient, and accessible.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="fade-in">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-container">
+            <div class="skills-categories">
+                <div class="skills-category">
+                    <h3>Cyber Security</h3>
+                    <div class="skills-list">
+                        Ethical Hacking<br>
+                        Penetration Testing<br>
+                        Network Security<br>
+                        Web Application Security<br>
+                        Vulnerability Assessment
+                    </div>
+                </div>
+                
+                <div class="skills-category">
+                    <h3>Development</h3>
+                    <div class="skills-list">
+                        Python<br>
+                        JavaScript<br>
+                        Web Development<br>
+                        Blockchain Technology<br>
+                        Database Management
+                    </div>
+                </div>
+                
+                <div class="skills-category">
+                    <h3>AI & Automation</h3>
+                    <div class="skills-list">
+                        Machine Learning<br>
+                        Process Automation<br>
+                        Data Analysis<br>
+                        AI Integration<br>
+                        Workflow Optimization
+                    </div>
+                </div>
+            </div>
+            
+            <div class="skills-description">
+                <p>My technical expertise spans across cybersecurity, software development, and artificial intelligence. I specialize in identifying security vulnerabilities, developing secure applications, and integrating AI solutions to automate and enhance various processes.</p>
+                
+                <p>Through hands-on projects and continuous learning, I've built a comprehensive skill set that allows me to approach problems from multiple angles - always with security and efficiency in mind.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="fade-in">
+        <h2 class="section-title">Selected Work</h2>
+        
+        <div class="projects-toggle">
+            <button class="show-projects-btn interactive-cursor" onclick="toggleProjects()">
+                <span id="projects-btn-text">View Projects</span>
+            </button>
+        </div>
+        
+        <div class="projects-grid" id="projects-grid">
+            <!-- Currently Working On -->
+            <div class="current-work">
+                <div class="current-work-label">Currently Working On</div>
+                <div class="current-work-title">Deepfake Detection System</div>
+                <div class="current-work-desc">
+                    Developing an AI-powered system to identify and analyze deepfake content using advanced machine learning techniques 
+                    and computer vision algorithms for digital media authentication.
+                </div>
+            </div>
+            
+            <div class="project">
+                <div class="project-header">
+                    <div>
+                        <div class="project-title">Blockchain-Based Voting System</div>
+                        <div class="project-year">2024</div>
+                    </div>
+                </div>
+                <div class="project-description">
+                    Developed a secure, transparent voting system using blockchain technology to ensure vote integrity and prevent tampering. 
+                    The system provides immutable vote records, voter anonymity, and real-time result verification while maintaining 
+                    the highest security standards for democratic processes.
+                </div>
+                <div class="project-tech">
+                    <span class="tech-tag">Blockchain</span>
+                    <span class="tech-tag">Smart Contracts</span>
+                    <span class="tech-tag">Cryptography</span>
+                    <span class="tech-tag">Web3</span>
+                    <span class="tech-tag">Security</span>
+                </div>
+            </div>
+            
+            <div class="project">
+                <div class="project-header">
+                    <div>
+                        <div class="project-title">Web Application Firewall</div>
+                        <div class="project-year">2024</div>
+                    </div>
+                </div>
+                <div class="project-description">
+                    Built a comprehensive web application firewall designed to protect web applications from common security threats 
+                    including SQL injection, XSS, and DDoS attacks. Features real-time threat detection, automated response mechanisms, 
+                    and detailed security analytics for continuous monitoring and improvement.
+                </div>
+                <div class="project-tech">
+                    <span class="tech-tag">Network Security</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Threat Detection</span>
+                    <span class="tech-tag">Security Analytics</span>
+                    <span class="tech-tag">Web Security</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="fade-in">
+        <h2 class="section-title">Contact</h2>
+        <div class="contact-content">
+            <div class="contact-info">
+                <h3>Get in touch</h3>
+                <div class="contact-links">
+                    <a href="https://www.linkedin.com/in/sankarnath-ch-456a8127b/" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/EkRiDiZ" target="_blank">GitHub</a>
+                    <a href="mailto:sankarnath@example.com">Email</a>
+                </div>
+            </div>
+            <div class="contact-text">
+                <p>I'm always interested in discussing new opportunities, collaborations, and innovative projects in cybersecurity and AI. Whether you're looking for a dedicated team member, a security consultant, or someone to help integrate AI into your workflows, I'd love to hear from you.</p>
+                
+                <p>Currently seeking internship and entry-level opportunities where I can contribute to building secure, intelligent systems while continuing to grow and learn.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Sankarnath C H. Designed with precision and purpose.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        function handleScrollAnimations() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 100;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Initialize scroll animations
+        window.addEventListener('scroll', handleScrollAnimations);
+        document.addEventListener('DOMContentLoaded', handleScrollAnimations);
+
+        // Projects toggle functionality
+        function toggleProjects() {
+            const projectsGrid = document.getElementById('projects-grid');
+            const btn = document.querySelector('.show-projects-btn');
+            const btnText = document.getElementById('projects-btn-text');
+            
+            if (projectsGrid.classList.contains('visible')) {
+                projectsGrid.classList.remove('visible');
+                btn.classList.remove('active');
+                btnText.textContent = 'View Projects';
+            } else {
+                projectsGrid.classList.add('visible');
+                btn.classList.add('active');
+                btnText.textContent = 'Hide Projects';
+            }
+        }
+
+        // Add subtle parallax effect to current work section
+        window.addEventListener('scroll', function() {
+            const currentWork = document.querySelector('.current-work');
+            if (currentWork) {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.1;
+                currentWork.style.transform = `translateY(${rate}px)`;
+            }
+        });
+
+        // Add subtle header background change on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(10, 10, 10, 0.98)';
+            } else {
+                header.style.background = 'rgba(10, 10, 10, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
