@@ -1,15 +1,4 @@
-.about-info h3,
-    .skills-category h3,
-    .contact-info h3 {
-      color: #ffffff;
-      margin-bottom: 1rem;
-      font-weight: 400;
-      font-size: 1.1rem;
-    }
-
-    .about-info h3:not(:first-child) {
-      margin-top: 2.5rem;
-    }<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -32,7 +21,17 @@
       position: relative;
     }
 
-    /* Starfield Background */
+    /* Reduced motion for accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .starfield { display: none; }
+    }
+
+    /* Starfield Background - Optimized */
     .starfield {
       position: fixed;
       top: 0;
@@ -48,23 +47,13 @@
       background: #ffffff;
       border-radius: 50%;
       opacity: 0;
+      will-change: opacity, transform;
       animation: twinkle 4s infinite ease-in-out;
     }
 
-    .star.small {
-      width: 1px;
-      height: 1px;
-    }
-
-    .star.medium {
-      width: 2px;
-      height: 2px;
-    }
-
-    .star.large {
-      width: 3px;
-      height: 3px;
-    }
+    .star.small { width: 1px; height: 1px; }
+    .star.medium { width: 2px; height: 2px; }
+    .star.large { width: 3px; height: 3px; }
 
     @keyframes twinkle {
       0%, 100% { opacity: 0; transform: scale(0.8); }
@@ -73,25 +62,23 @@
 
     @keyframes drift {
       0% { transform: translateX(0) translateY(0); }
-      25% { transform: translateX(10px) translateY(-5px); }
-      50% { transform: translateX(-5px) translateY(-10px); }
-      75% { transform: translateX(-10px) translateY(5px); }
+      25% { transform: translateX(5px) translateY(-3px); }
+      50% { transform: translateX(-3px) translateY(-5px); }
+      75% { transform: translateX(-5px) translateY(3px); }
       100% { transform: translateX(0) translateY(0); }
     }
 
     .star.drifting {
-      animation: twinkle 4s infinite ease-in-out, drift 20s infinite linear;
+      animation: twinkle 4s infinite ease-in-out, drift 15s infinite linear;
     }
 
-    /* Ensure content is above stars */
-    header,
-    .hero,
-    section,
-    footer {
+    /* Content positioning */
+    header, .hero, section, footer {
       position: relative;
       z-index: 10;
     }
 
+    /* Header - Fixed mobile issues */
     header {
       position: fixed;
       top: 0;
@@ -100,7 +87,7 @@
       backdrop-filter: blur(10px);
       border-bottom: 1px solid #2a2a2a;
       z-index: 1000;
-      padding: 1rem 0;
+      padding: 0.75rem 0;
     }
 
     nav {
@@ -109,12 +96,12 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 2rem;
+      padding: 0 1rem;
       position: relative;
     }
 
     .logo {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: 600;
       color: #c0c0c0;
     }
@@ -124,30 +111,36 @@
       font-size: 1.5rem;
       color: #c0c0c0;
       cursor: pointer;
+      padding: 0.5rem;
+      border: none;
+      background: none;
+      z-index: 1001;
     }
 
     .nav-links {
       display: flex;
       list-style: none;
-      gap: 2rem;
+      gap: 1.5rem;
     }
 
     .nav-links a {
       color: #c0c0c0;
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       transition: color 0.3s ease;
       position: relative;
+      padding: 0.5rem 0;
     }
 
-    .nav-links a:hover {
+    .nav-links a:hover, .nav-links a:focus {
       color: #ffffff;
+      outline: none;
     }
 
     .nav-links a::after {
       content: '';
       position: absolute;
-      bottom: -5px;
+      bottom: 0;
       left: 0;
       width: 0;
       height: 1px;
@@ -155,43 +148,54 @@
       transition: width 0.3s ease;
     }
 
-    .nav-links a:hover::after {
+    .nav-links a:hover::after, .nav-links a:focus::after {
       width: 100%;
     }
 
+    /* Mobile Navigation - Fixed */
     @media (max-width: 768px) {
+      nav {
+        padding: 0 1rem;
+      }
+
       .menu-icon {
         display: block;
       }
 
       .nav-links {
-        position: absolute;
-        top: 60px;
-        right: 0;
-        background: #0a0a0a;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        background: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(20px);
         flex-direction: column;
-        width: 100%;
-        display: none;
-        text-align: right;
-        padding: 1rem 2rem;
-        z-index: 999;
+        width: 250px;
+        height: 100vh;
+        padding: 5rem 2rem 2rem;
+        transition: right 0.3s ease;
+        border-left: 1px solid #2a2a2a;
+      }
+
+      .nav-links.show {
+        right: 0;
       }
 
       .nav-links li {
         margin-bottom: 1rem;
       }
 
-      .nav-links.show {
-        display: flex;
+      .nav-links a {
+        font-size: 1.1rem;
+        padding: 1rem 0;
       }
     }
 
+    /* Hero Section - Mobile optimized */
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
-      padding: 0 2rem;
-      margin-top: 80px;
+      padding: 5rem 1rem 2rem;
     }
 
     .hero-container {
@@ -201,40 +205,41 @@
     }
 
     .hero-content h1 {
-      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-size: clamp(2rem, 8vw, 4rem);
       font-weight: 300;
       margin-bottom: 1rem;
       color: #ffffff;
+      line-height: 1.1;
     }
 
     .title {
-      font-size: 1.2rem;
+      font-size: clamp(1rem, 4vw, 1.2rem);
       color: #c0c0c0;
       margin-bottom: 1.5rem;
     }
 
     .description {
-      font-size: 1rem;
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
       color: #999999;
       max-width: 600px;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
     }
 
-
-
+    /* Sections - Mobile spacing fixed */
     section {
-      padding: 8rem 2rem;
+      padding: clamp(3rem, 10vw, 8rem) 1rem;
       max-width: 1200px;
       margin: 0 auto;
     }
 
     .section-title {
-      font-size: 2rem;
+      font-size: clamp(1.5rem, 5vw, 2rem);
       font-weight: 300;
-      margin-bottom: 4rem;
+      margin-bottom: clamp(2rem, 6vw, 4rem);
       color: #ffffff;
     }
 
+    /* Animation improvements */
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
@@ -246,12 +251,14 @@
       transform: translateY(0);
     }
 
+    /* Grid layouts - Mobile responsive */
     .about-content,
     .skills-container,
     .contact-content {
       display: grid;
       grid-template-columns: 1fr 2fr;
-      gap: 6rem;
+      gap: clamp(2rem, 8vw, 6rem);
+      align-items: start;
     }
 
     @media (max-width: 768px) {
@@ -259,26 +266,43 @@
       .skills-container,
       .contact-content {
         grid-template-columns: 1fr;
-        gap: 3rem;
+        gap: 2rem;
       }
+    }
+
+    /* Content styling */
+    .about-info h3,
+    .skills-category h3,
+    .contact-info h3 {
+      color: #ffffff;
+      margin-bottom: 1rem;
+      font-weight: 400;
+      font-size: clamp(1rem, 3vw, 1.1rem);
+    }
+
+    .about-info h3:not(:first-child) {
+      margin-top: 2rem;
     }
 
     .about-info,
     .skills-category,
     .contact-info {
       color: #999999;
+      font-size: clamp(0.85rem, 2.5vw, 0.95rem);
     }
 
     .about-text,
     .skills-description,
     .contact-text {
       color: #b0b0b0;
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
     }
 
+    /* Projects - Mobile optimized */
     .project {
       border-bottom: 1px solid #2a2a2a;
-      padding-bottom: 6rem;
-      margin-bottom: 6rem;
+      padding-bottom: clamp(3rem, 8vw, 6rem);
+      margin-bottom: clamp(3rem, 8vw, 6rem);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
@@ -289,60 +313,84 @@
 
     .project.current {
       border: 1px solid #333333;
-      padding: 3rem;
+      padding: clamp(1.5rem, 5vw, 3rem);
       border-radius: 8px;
       background: rgba(255, 255, 255, 0.02);
-      margin-bottom: 8rem;
+      margin-bottom: clamp(4rem, 10vw, 8rem);
     }
 
     .project.current::before {
       content: 'Currently Working On';
       display: block;
-      font-size: 0.85rem;
+      font-size: clamp(0.75rem, 2vw, 0.85rem);
       color: #666666;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       margin-bottom: 1rem;
     }
 
-    .project:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 8px 24px rgba(255, 255, 255, 0.05);
+    @media (hover: hover) {
+      .project:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 24px rgba(255, 255, 255, 0.05);
+      }
     }
 
     .project-header {
       display: flex;
       justify-content: space-between;
+      align-items: flex-start;
       margin-bottom: 1.5rem;
+      gap: 1rem;
+    }
+
+    @media (max-width: 480px) {
+      .project-header {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
     }
 
     .project-title {
-      font-size: 1.3rem;
+      font-size: clamp(1.1rem, 3.5vw, 1.3rem);
       color: #ffffff;
+      line-height: 1.2;
     }
 
     .project-year {
       color: #999999;
+      font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+      flex-shrink: 0;
     }
 
     .project-description {
       color: #b0b0b0;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      line-height: 1.6;
+    }
+
+    /* Tech tags - Mobile friendly */
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
     .tech-tag {
-      font-size: 0.85rem;
+      font-size: clamp(0.8rem, 2vw, 0.85rem);
       color: #999999;
       border-bottom: 1px solid #333333;
-      margin-right: 1.5rem;
       padding-bottom: 2px;
       transition: color 0.3s ease;
+      white-space: nowrap;
     }
 
     .tech-tag:hover {
       color: #c0c0c0;
     }
 
+    /* Contact section */
     .contact-links {
       display: flex;
       flex-direction: column;
@@ -353,25 +401,30 @@
     .contact-links a {
       color: #999999;
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: clamp(0.9rem, 2.5vw, 0.95rem);
       transition: color 0.3s ease;
+      padding: 0.5rem 0;
     }
 
-    .contact-links a:hover {
+    .contact-links a:hover,
+    .contact-links a:focus {
       color: #ffffff;
+      outline: none;
     }
 
+    /* Footer */
     footer {
       text-align: center;
-      padding: 3rem 2rem;
+      padding: 2rem 1rem;
       border-top: 1px solid #2a2a2a;
     }
 
     footer p {
       color: #666666;
-      font-size: 0.9rem;
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
     }
 
+    /* Page load animation */
     @keyframes pageLoad {
       from {
         opacity: 0;
@@ -382,24 +435,49 @@
         transform: translateY(0);
       }
     }
+
+    /* Focus styles for accessibility */
+    button:focus,
+    a:focus {
+      outline: 2px solid #c0c0c0;
+      outline-offset: 2px;
+    }
+
+    /* Skip to content link for accessibility */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 6px;
+      background: #c0c0c0;
+      color: #0a0a0a;
+      padding: 8px;
+      text-decoration: none;
+      transition: top 0.3s;
+      z-index: 1002;
+    }
+
+    .skip-link:focus {
+      top: 6px;
+    }
   </style>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- Starfield Background -->
-  <div class="starfield" id="starfield"></div>
+  <div class="starfield" id="starfield" aria-hidden="true"></div>
 
   <!-- Header -->
   <header>
-    <nav>
+    <nav role="navigation" aria-label="Main navigation">
       <div class="logo">Sankarnath C H</div>
-      <div class="menu-icon" onclick="toggleMenu()">☰</div>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
+      <button class="menu-icon" onclick="toggleMenu()" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
+      <ul class="nav-links" role="menubar">
+        <li role="none"><a href="#home" role="menuitem">Home</a></li>
+        <li role="none"><a href="#about" role="menuitem">About</a></li>
+        <li role="none"><a href="#skills" role="menuitem">Skills</a></li>
+        <li role="none"><a href="#projects" role="menuitem">Projects</a></li>
+        <li role="none"><a href="#contact" role="menuitem">Contact</a></li>
       </ul>
     </nav>
   </header>
@@ -414,132 +492,133 @@
           Final year Computer Science Engineering student specializing in Cyber Security and Ethical Hacking,
           with a passion for integrating AI into everyday solutions.
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- About -->
-  <section id="about" class="fade-in">
-    <h2 class="section-title">About</h2>
-    <div class="about-content">
-      <div class="about-info">
-        <h3>Education</h3>
-        <p>BTech in Computer Science Engineering with Cyber Security<br>
-        St Joseph's College of Engineering and Technology, Palai<br>
-        2022 - 2026 (Final Year)</p>
-        <h3>Focus Areas</h3>
-        <p>Cyber Security<br>Ethical Hacking<br>AI Integration<br>Prompt Engineering<br>Secure Software Development</p>
+  <main id="main-content">
+    <!-- About -->
+    <section id="about" class="fade-in">
+      <h2 class="section-title">About</h2>
+      <div class="about-content">
+        <div class="about-info">
+          <h3>Education</h3>
+          <p>BTech in Computer Science Engineering with Cyber Security<br>
+          St Joseph's College of Engineering and Technology, Palai<br>
+          2022 - 2026 (Final Year)</p>
+          <h3>Focus Areas</h3>
+          <p>Cyber Security<br>Ethical Hacking<br>AI Integration<br>Prompt Engineering<br>Secure Software Development</p>
+        </div>
+        <div class="about-text">
+          I'm a passionate cybersecurity enthusiast and developer focused on building secure, intelligent systems. My approach combines deep technical knowledge with practical problem-solving to create solutions that protect and enhance digital experiences.
+          
+          <br><br>
+          
+          Currently exploring the intersection of AI and cybersecurity, with particular interest in threat detection, automated security analysis, and the ethical implications of emerging technologies.
+        </div>
       </div>
-      <div class="about-text">
-        I'm a passionate cybersecurity enthusiast and developer focused on building secure, intelligent systems. My approach combines deep technical knowledge with practical problem-solving to create solutions that protect and enhance digital experiences.
-        
-        <br><br>
-        
-        Currently exploring the intersection of AI and cybersecurity, with particular interest in threat detection, automated security analysis, and the ethical implications of emerging technologies.
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Skills -->
-  <section id="skills" class="fade-in">
-    <h2 class="section-title">Skills</h2>
-    <div class="skills-container">
-      <div>
-        <div class="skills-category">
-          <h3>Cyber Security</h3>
-          <p>Ethical Hacking, Pen Testing, Network Security</p>
-        </div>
-        <div class="skills-category">
-          <h3>Development</h3>
-          <p>Python, JavaScript, Web Dev, Blockchain</p>
-        </div>
-        <div class="skills-category">
-          <h3>AI & Automation</h3>
-          <p>ML, Automation, AI Integration</p>
-        </div>
-      </div>
-      <div class="skills-description">
-        <p>My expertise spans across multiple domains, each reinforcing the others to create comprehensive security solutions. I believe in the power of ethical hacking to strengthen defenses, the potential of AI to automate and enhance security processes, and the importance of building systems that are both powerful and responsible.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects -->
-  <section id="projects" class="fade-in">
-    <h2 class="section-title">Projects</h2>
-    
-    <!-- Current Project -->
-    <div class="project current">
-      <div class="project-header">
+    <!-- Skills -->
+    <section id="skills" class="fade-in">
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-container">
         <div>
-          <div class="project-title">Deepfake Image Detection</div>
-          <div class="project-year">2025</div>
+          <div class="skills-category">
+            <h3>Cyber Security</h3>
+            <p>Ethical Hacking, Pen Testing, Network Security</p>
+          </div>
+          <div class="skills-category">
+            <h3>Development</h3>
+            <p>Python, JavaScript, Web Dev, Blockchain</p>
+          </div>
+          <div class="skills-category">
+            <h3>AI & Automation</h3>
+            <p>ML, Automation, AI Integration</p>
+          </div>
+        </div>
+        <div class="skills-description">
+          <p>My expertise spans across multiple domains, each reinforcing the others to create comprehensive security solutions. I believe in the power of ethical hacking to strengthen defenses, the potential of AI to automate and enhance security processes, and the importance of building systems that are both powerful and responsible.</p>
         </div>
       </div>
-      <div class="project-description">
-        Developing an AI-powered system to detect deepfake images using advanced neural networks and computer vision techniques. The project focuses on real-time detection capabilities and maintaining high accuracy across various deepfake generation methods.
-      </div>
-      <div>
-        <span class="tech-tag">Python</span>
-        <span class="tech-tag">TensorFlow</span>
-        <span class="tech-tag">Computer Vision</span>
-        <span class="tech-tag">Deep Learning</span>
-      </div>
-    </div>
+    </section>
 
-    <div class="project">
-      <div class="project-header">
-        <div>
-          <div class="project-title">Blockchain Voting System</div>
-          <div class="project-year">2024</div>
+    <!-- Projects -->
+    <section id="projects" class="fade-in">
+      <h2 class="section-title">Projects</h2>
+      
+      <!-- Current Project -->
+      <article class="project current">
+        <div class="project-header">
+          <div>
+            <h3 class="project-title">Deepfake Image Detection</h3>
+            <div class="project-year">2025</div>
+          </div>
         </div>
-      </div>
-      <div class="project-description">
-        Developed a decentralized voting platform using blockchain technology to ensure transparent, tamper-proof elections. The system implements smart contracts for vote validation and uses cryptographic techniques to maintain voter anonymity while ensuring vote integrity.
-      </div>
-      <div>
-        <span class="tech-tag">Blockchain</span>
-        <span class="tech-tag">Smart Contracts</span>
-        <span class="tech-tag">Web3</span>
-      </div>
-    </div>
+        <div class="project-description">
+          Developing an AI-powered system to detect deepfake images using advanced neural networks and computer vision techniques. The project focuses on real-time detection capabilities and maintaining high accuracy across various deepfake generation methods.
+        </div>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">TensorFlow</span>
+          <span class="tech-tag">Computer Vision</span>
+          <span class="tech-tag">Deep Learning</span>
+        </div>
+      </article>
 
-    <div class="project">
-      <div class="project-header">
-        <div>
-          <div class="project-title">Web Application Firewall</div>
-          <div class="project-year">2024</div>
+      <article class="project">
+        <div class="project-header">
+          <div>
+            <h3 class="project-title">Blockchain Voting System</h3>
+            <div class="project-year">2024</div>
+          </div>
         </div>
-      </div>
-      <div class="project-description">
-        Built a comprehensive web application firewall capable of detecting and blocking common web attacks including SQL injection, XSS, CSRF, and path traversal attacks. Features real-time threat analysis and adaptive rule generation.
-      </div>
-      <div>
-        <span class="tech-tag">Python</span>
-        <span class="tech-tag">Security</span>
-        <span class="tech-tag">WAF</span>
-      </div>
-    </div>
-  </section>
+        <div class="project-description">
+          Developed a decentralized voting platform using blockchain technology to ensure transparent, tamper-proof elections. The system implements smart contracts for vote validation and uses cryptographic techniques to maintain voter anonymity while ensuring vote integrity.
+        </div>
+        <div class="tech-tags">
+          <span class="tech-tag">Blockchain</span>
+          <span class="tech-tag">Smart Contracts</span>
+          <span class="tech-tag">Web3</span>
+        </div>
+      </article>
 
-  <!-- Contact -->
-  <section id="contact" class="fade-in">
-    <h2 class="section-title">Contact</h2>
-    <div class="contact-content">
-      <div class="contact-info">
-        <h3>Get in touch</h3>
-        <div class="contact-links">
-          <a href="https://www.linkedin.com/in/sankarnath-ch-456a8127b/" target="_blank">LinkedIn</a>
-          <a href="https://github.com/EkRiDiZ" target="_blank">GitHub</a>
-          <a href="mailto:chsankarnath65@gmail.com">Email</a>
+      <article class="project">
+        <div class="project-header">
+          <div>
+            <h3 class="project-title">Web Application Firewall</h3>
+            <div class="project-year">2024</div>
+          </div>
+        </div>
+        <div class="project-description">
+          Built a comprehensive web application firewall capable of detecting and blocking common web attacks including SQL injection, XSS, CSRF, and path traversal attacks. Features real-time threat analysis and adaptive rule generation.
+        </div>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Security</span>
+          <span class="tech-tag">WAF</span>
+        </div>
+      </article>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="fade-in">
+      <h2 class="section-title">Contact</h2>
+      <div class="contact-content">
+        <div class="contact-info">
+          <h3>Get in touch</h3>
+          <div class="contact-links">
+            <a href="https://www.linkedin.com/in/sankarnath-ch-456a8127b/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://github.com/EkRiDiZ" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="mailto:chsankarnath65@gmail.com">Email</a>
+          </div>
+        </div>
+        <div class="contact-text">
+          Currently seeking internship/entry-level roles in Cyber Security and AI.
         </div>
       </div>
-      <div class="contact-text">
-        Currently seeking internship/entry-level roles in Cyber Security and AI.
-      </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <!-- Footer -->
   <footer>
@@ -549,67 +628,103 @@
   <script>
     function toggleMenu() {
       const navLinks = document.querySelector('.nav-links');
+      const menuIcon = document.querySelector('.menu-icon');
+      const isOpen = navLinks.classList.contains('show');
+      
       navLinks.classList.toggle('show');
+      menuIcon.setAttribute('aria-expanded', !isOpen);
+      
+      // Close menu when clicking on a link
+      if (!isOpen) {
+        navLinks.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            navLinks.classList.remove('show');
+            menuIcon.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
     }
 
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      const nav = document.querySelector('nav');
+      const navLinks = document.querySelector('.nav-links');
+      const menuIcon = document.querySelector('.menu-icon');
+      
+      if (!nav.contains(e.target) && navLinks.classList.contains('show')) {
+        navLinks.classList.remove('show');
+        menuIcon.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const headerHeight = document.querySelector('header').offsetHeight;
+          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
         }
       });
     });
 
+    // Scroll animations with intersection observer
     function handleScrollAnimations() {
       const fadeElements = document.querySelectorAll('.fade-in');
-      fadeElements.forEach(el => {
-        const top = el.getBoundingClientRect().top;
-        const visible = 100;
-        if (top < window.innerHeight - visible) {
-          el.classList.add('visible');
-        }
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
       });
+      
+      fadeElements.forEach(el => observer.observe(el));
     }
 
-    // Starfield Animation
+    // Optimized starfield with reduced count for mobile
     function createStarfield() {
       const starfield = document.getElementById('starfield');
-      const starCount = 50; // Adjust number of stars
+      const isMobile = window.innerWidth <= 768;
+      const starCount = isMobile ? 25 : 40; // Fewer stars on mobile
 
       for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
         star.className = 'star';
         
-        // Random size
+        // Random size distribution
         const sizes = ['small', 'medium', 'large'];
-        const weights = [0.7, 0.25, 0.05]; // More small stars, fewer large ones
+        const weights = [0.7, 0.25, 0.05];
         let randomSize = Math.random();
         let selectedSize = sizes[0];
         
-        if (randomSize > weights[0]) {
-          selectedSize = sizes[1];
-        }
-        if (randomSize > weights[0] + weights[1]) {
-          selectedSize = sizes[2];
-        }
+        if (randomSize > weights[0]) selectedSize = sizes[1];
+        if (randomSize > weights[0] + weights[1]) selectedSize = sizes[2];
         
         star.classList.add(selectedSize);
         
-        // Some stars drift slowly
-        if (Math.random() < 0.3) {
+        // Fewer drifting stars on mobile
+        if (Math.random() < (isMobile ? 0.2 : 0.3)) {
           star.classList.add('drifting');
         }
         
-        // Random position
+        // Random positioning
         star.style.left = Math.random() * 100 + '%';
         star.style.top = Math.random() * 100 + '%';
         
-        // Random animation delay for twinkling
+        // Staggered animation delays
         star.style.animationDelay = Math.random() * 4 + 's';
         
-        // Random drift delay for drifting stars
         if (star.classList.contains('drifting')) {
           star.style.animationDelay = Math.random() * 4 + 's, ' + Math.random() * 20 + 's';
         }
@@ -618,12 +733,29 @@
       }
     }
 
-    window.addEventListener('scroll', handleScrollAnimations);
+    // Initialize everything when DOM is ready
     document.addEventListener('DOMContentLoaded', function() {
       handleScrollAnimations();
-      createStarfield();
+      
+      // Only create starfield if motion is not reduced
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        createStarfield();
+      }
+    });
+
+    // Handle resize events
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        // Recreate starfield on significant size changes
+        const starfield = document.getElementById('starfield');
+        if (starfield && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          starfield.innerHTML = '';
+          createStarfield();
+        }
+      }, 250);
     });
   </script>
-
 </body>
 </html>
